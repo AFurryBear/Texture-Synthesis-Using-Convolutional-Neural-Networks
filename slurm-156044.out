@@ -1,0 +1,70 @@
+2024-01-13 14:38:50.526675: E tensorflow/stream_executor/cuda/cuda_driver.cc:271] failed call to cuInit: CUDA_ERROR_NO_DEVICE: no CUDA-capable device is detected
+2024-01-13 14:38:50.527041: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:169] retrieving CUDA diagnostic information for host: lnx-cm-21004
+2024-01-13 14:38:50.527069: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:176] hostname: lnx-cm-21004
+2024-01-13 14:38:50.527174: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:200] libcuda reported version is: 530.30.2
+2024-01-13 14:38:50.527237: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:204] kernel reported version is: 530.30.2
+2024-01-13 14:38:50.527255: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:310] kernel version seems to match DSO: 530.30.2
+2024-01-13 14:38:50.527751: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Configuration : 5 - Upto Pooling Layer 4
+/gpfs/laur/data/xiongy/visual_stimuli/TextureSynthesis/tensorflow_vgg/vgg16.npy
+npy file loaded
+build model started
+build model finished: 0s
+[]
+All layers' outputs have been computed sucessfully.
+/gpfs/laur/data/xiongy/visual_stimuli/TextureSynthesis/tensorflow_vgg/vgg16.npy
+npy file loaded
+build model started
+build model finished: 0s
+[<tf.Variable 'input_noise:0' shape=(1, 256, 256, 3) dtype=float32>]
+Epoch: 1000/50000  Loss:  14213829000000.0
+Epoch: 2000/50000  Loss:  1329390000000.0
+Epoch: 3000/50000  Loss:  444171100000.0
+Epoch: 4000/50000  Loss:  236921290000.0
+Epoch: 5000/50000  Loss:  142423900000.0
+Epoch: 6000/50000  Loss:  90096570000.0
+Epoch: 7000/50000  Loss:  59129938000.0
+Epoch: 8000/50000  Loss:  40651100000.0
+Epoch: 9000/50000  Loss:  29532967000.0
+Epoch: 10000/50000  Loss:  22724334000.0
+Epoch: 11000/50000  Loss:  18679626000.0
+Epoch: 12000/50000  Loss:  16126977000.0
+Epoch: 13000/50000  Loss:  14582696000.0
+Epoch: 14000/50000  Loss:  13533114000.0
+Epoch: 15000/50000  Loss:  12822094000.0
+Epoch: 16000/50000  Loss:  12282918000.0
+Epoch: 17000/50000  Loss:  11880763000.0
+Epoch: 18000/50000  Loss:  11561859000.0
+Epoch: 19000/50000  Loss:  11321329000.0
+Epoch: 20000/50000  Loss:  11115111000.0
+Epoch: 21000/50000  Loss:  12568134000.0
+Epoch: 22000/50000  Loss:  10791640000.0
+Epoch: 23000/50000  Loss:  11505593000.0
+Epoch: 24000/50000  Loss:  10567642000.0
+Epoch: 25000/50000  Loss:  10433002000.0
+Epoch: 26000/50000  Loss:  10771024000.0
+Epoch: 27000/50000  Loss:  10290091000.0
+Epoch: 28000/50000  Loss:  10158639000.0
+Epoch: 29000/50000  Loss:  10101942000.0
+Epoch: 30000/50000  Loss:  10020132000.0
+Epoch: 31000/50000  Loss:  9944381000.0
+Epoch: 32000/50000  Loss:  9897830000.0
+Epoch: 33000/50000  Loss:  9837743000.0
+Epoch: 34000/50000  Loss:  10111768000.0
+Epoch: 35000/50000  Loss:  11180840000.0
+Epoch: 36000/50000  Loss:  9648625000.0
+Epoch: 37000/50000  Loss:  9609259000.0
+Epoch: 38000/50000  Loss:  9862546000.0
+Epoch: 39000/50000  Loss:  9753783000.0
+Epoch: 40000/50000  Loss:  9479462000.0
+Epoch: 41000/50000  Loss:  9435196000.0
+Epoch: 42000/50000  Loss:  9852203000.0
+Epoch: 43000/50000  Loss:  9376121000.0
+Epoch: 44000/50000  Loss:  9322445000.0
+Epoch: 45000/50000  Loss:  9289058000.0
+Epoch: 46000/50000  Loss:  11128523000.0
+Epoch: 47000/50000  Loss:  9286655000.0
+Epoch: 48000/50000  Loss:  9203368000.0
+Epoch: 49000/50000  Loss:  9186828000.0
+Epoch: 50000/50000  Loss:  9191770000.0

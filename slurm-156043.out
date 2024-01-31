@@ -1,0 +1,9 @@
+2024-01-12 14:15:23.313934: E tensorflow/stream_executor/cuda/cuda_driver.cc:271] failed call to cuInit: CUDA_ERROR_NO_DEVICE: no CUDA-capable device is detected
+2024-01-12 14:15:23.314313: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:169] retrieving CUDA diagnostic information for host: lnx-cm-21004
+2024-01-12 14:15:23.314338: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:176] hostname: lnx-cm-21004
+2024-01-12 14:15:23.314446: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:200] libcuda reported version is: 530.30.2
+2024-01-12 14:15:23.314511: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:204] kernel reported version is: 530.30.2
+2024-01-12 14:15:23.314528: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:310] kernel version seems to match DSO: 530.30.2
+2024-01-12 14:15:23.315160: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+slurmstepd-lnx-cm-21004.mpibr.local: error: *** JOB 156043 ON lnx-cm-21004.mpibr.local CANCELLED AT 2024-01-12T14:51:43 ***

@@ -1,0 +1,7 @@
+/var/spool/slurmd/job156040/slurm_script: line 12: source: /gpfs/laur/data/xiongy/visual_stimuli/TextureSynthesis/.venv/: is a directory
+Traceback (most recent call last):
+  File "/gpfs/laur/data/xiongy/visual_stimuli/TextureSynthesis/syn_texture.py", line 1, in <module>
+    from tensorflow_vgg import vgg16_avg_pool
+  File "/gpfs/laur/data/xiongy/visual_stimuli/TextureSynthesis/tensorflow_vgg/vgg16_avg_pool.py", line 5, in <module>
+    import tensorflow.compat.v1 as tf
+ModuleNotFoundError: No module named 'tensorflow'

@@ -1,5 +1,6 @@
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 from tensorflow_vgg import vgg16_avg_pool
+tf.disable_eager_execution()
 
 def compute_tf_output(img_array):
     tf.reset_default_graph()

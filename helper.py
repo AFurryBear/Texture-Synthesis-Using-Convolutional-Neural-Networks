@@ -13,6 +13,10 @@ def resize_and_rescale_img(image_path, w, h, output_path_, output_filename):
             os.makedirs(output_path_)
         img_resized.save(output_path_ + output_filename)
         img_array = np.array(img_resized, dtype=np.float32)
+        # check if img is greyscaled
+        if (len(img_array.shape)==2): 
+            img_array = np.expand_dims(img_array,2)
+            img_array = np.concatenate([img_array,img_array,img_array],axis=2)
         img_array = np.expand_dims(img_array, 0)
         img_array = img_array / 255
         
@@ -30,7 +34,7 @@ def post_process_and_display(cnn_output, output_path, output_filename, save_file
     x *= 255
     x = np.clip(x, 0, 255).astype('uint8')
     img = Image.fromarray(x, mode='RGB')
-    img.show()
+    # img.show()
     if save_file:
         if not os.path.exists(output_path):
             os.makedirs(output_path)

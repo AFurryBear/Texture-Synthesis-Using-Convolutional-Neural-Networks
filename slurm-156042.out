@@ -1,0 +1,5 @@
+Configuration : 5 - Upto Pooling Layer 4
+Traceback (most recent call last):
+  File "/gpfs/laur/data/xiongy/visual_stimuli/TextureSynthesis/syn_texture.py", line 69, in <module>
+    os.chdir(root_path)
+FileNotFoundError: [Errno 2] No such file or directory: '/gpfs/laur/data/xiongy/visual_stimuli/Texture-Synthesis-Using-Convolutional-Neural-Networks/'
