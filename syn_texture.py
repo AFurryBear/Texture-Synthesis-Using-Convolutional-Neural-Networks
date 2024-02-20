@@ -6,6 +6,7 @@ import sys
 import os
 import tf_helper
 import tensorflow.compat.v1 as tf
+from PIL import Image
 tf.disable_eager_execution()
 filename = sys.argv[1]
 def loss_function(m, texture_op, noise_layers):
@@ -28,7 +29,9 @@ def loss_function(m, texture_op, noise_layers):
 
 def apply_mask(image_array):
     # Ensure the image array is square
-    height, width, _ = image_array.shape
+    image_array = image_array[0,:]
+    height = image_array.shape[0]
+    width = image_array.shape[1]
     if height != width:
         raise ValueError("Image array must be square (n x n pixels).")
 
@@ -39,32 +42,37 @@ def apply_mask(image_array):
     mask = dist_from_center <= radius
 
     # Initialize an image array with an alpha channel
-    masked_img = np.zeros((height, width, 4), dtype=np.float32)  # 4 channels: R, G, B, and Alpha
+    masked_img = np.zeros((1, height, width, 4), dtype=np.float32)  # 4 channels: R, G, B, and Alpha
 
     # Copy the RGB channels
-    masked_img[:, :, :3] = image_array
+    masked_img[0, :, :, :3] = image_array
 
     # Apply the mask to the alpha channel
-    masked_img[:, :, 3] = mask
-
+    masked_img[0, :, :, 3] = mask.astype(int)*255
+    masked_img[0,:,:,0] = masked_img[0,:,:,0]*mask.astype(int)
+    masked_img[0,:,:,1] = masked_img[0,:,:,0]
+    masked_img[0,:,:,2] = masked_img[0,:,:,0]
     return masked_img
 
 def intensity_match(texture_array, output_array):
     
     new_output = np.zeros(output_array.shape)
-    mask = np.where(texture_array[:,:,3]>0,True,False)
-    texture_data = texture_array[mask].flatten()
-    output_data = output_array[mask].flatten()
+    mask = np.where(texture_array[0,:,:,3]>0,True,False)
+    mask_idx, mask_idy = np.where(texture_array[0,:,:,3]>0)
+    texture_data = texture_array[0,:,:,1][mask].flatten()
+    output_data = output_array[0,:,:,1][mask].flatten()
     
     sorted_output = np.argsort(output_data)
     sorted_texture = np.argsort(texture_data)
     
     new_output_data = np.zeros(output_data.shape)
-    
     new_output_data[sorted_output] = texture_data[sorted_texture]
     
-    new_output[mask] = new_output_data.reshape(output_array[mask])
-
+    for i in range(len(mask_idx)):
+        new_output[0,:,:,0][mask_idx[i],mask_idy[i]] = new_output_data[i]
+    
+    new_output[0,:,:,1][mask] = new_output[0,:,:,0][mask]
+    new_output[0,:,:,2][mask] = new_output[0,:,:,0][mask]
     return new_output
     
 
@@ -73,15 +81,14 @@ def post_process(texture_array, output_array):
     ## first apply a mask to both texture and output 
     masked_texture = apply_mask(texture_array)
     masked_output = apply_mask(output_array)
+    helper.post_process_and_display(masked_output, "./image_resources/outputs/", 'masked_rock.png')
     ## use masked output to match intensity in masked texture
     new_output = intensity_match(masked_texture,masked_output)
     
     return new_output
     
 
-def run_texture_synthesis(input_filename, processed_path, processed_filename, m, eps, op_dir, initial_filename, final_filename,i_w=256,i_h = 256):
-
-    
+def run_texture_synthesis(input_filename, processed_path, processed_filename, m, eps, op_dir, initial_filename, final_filename,i_w = 256,i_h = 256):
     texture_array = helper.resize_and_rescale_img(input_filename, i_w, i_h, processed_path, processed_filename)
     texture_outputs = tf_helper.compute_tf_output(texture_array)
     
@@ -112,10 +119,10 @@ def run_texture_synthesis(input_filename, processed_path, processed_filename, m,
                 print("Epoch: {}/{}".format(i+1, epochs), " Loss: ", s_loss)
         final_noise = sess.run(input_noise)
     
-    final_output = post_process(texture_array, final_noise)
+    #final_output = post_process(texture_array, final_noise)
     
     initial_noise = helper.post_process_and_display(init_noise, op_dir, initial_filename, save_file=False)
-    final_output_ = helper.post_process_and_display(final_output, op_dir, final_filename)
+    final_output_ = helper.post_process_and_display(final_noise, op_dir, final_filename)
 
 
 # if __name__ == "__main__":
@@ -123,11 +130,15 @@ m = [(0, 1), (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (8, 1), (9,
 print("Configuration : 5 - Upto Pooling Layer 4")
 root_path = "/gpfs/laur/data/xiongy/visualencoding/visual_stimuli/TextureSynthesis/"
 os.chdir(root_path)
-ip_f = "./image_resources/original/"+filename
+ip_f = "./image_resources/original/"+os.path.splitext(filename)[0]+"_processed_1"+sys.argv[3]+".jpg"
 processed = "./image_resources/processed/"
-processed_path = os.path.splitext(filename)[0]+"_processed.jpg"
+processed_path = os.path.splitext(filename)[0]+"_processed_1-"+sys.argv[3]+".jpg"
 eps = 50000
 output_dir = "./image_resources/outputs/"
-noise_fn = os.path.splitext(filename)[0]+'_'+sys.argv[2]+"_C5_noise.jpg"
-final_fn = os.path.splitext(filename)[0]+'_'+sys.argv[2]+"_C5_final.jpg"
-run_texture_synthesis(ip_f, processed, processed_path, m, eps, output_dir, noise_fn, final_fn)
+noise_fn = os.path.splitext(filename)[0]+'_'+sys.argv[2]+"_"+sys.argv[3]+"_C5_noise.jpg"
+final_fn = os.path.splitext(filename)[0]+'_'+sys.argv[2]+"_"+sys.argv[3]+"_C5_final.jpg"
+processed_img = Image.open(ip_f)
+width = processed_img.size[0]
+height = processed_img.size[1]
+texture_array = np.array(processed_img)
+run_texture_synthesis(ip_f, processed, processed_path, m, eps, output_dir, noise_fn, final_fn, width, height)
